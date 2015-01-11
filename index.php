@@ -32,9 +32,22 @@ $lines_coded = file_get_contents($dir."assets/".$game.".txt");
 $lines = json_decode($lines_coded);
 
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
@@ -58,35 +71,26 @@ $lines = json_decode($lines_coded);
  
     dialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
-      height: 300,
-      width: 350,
       modal: true,
+      position: {my: "center", at: "top", of: window},
       buttons: {
-        "Create an account": addCard,
-        Cancel: function() {
-          dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
+        "0": addCard,
+        "1": addCard,
+        "2": addCard,
+        "3": addCard,
       }
     });
  
-    form = dialog.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addCard();
-    });
- 
-    $( ".create-user" ).button().on( "click", function() {
+    $( ".card-title" ).button().on( "click", function() {
       dialog.dialog( "open" );
     });
   });
   
-  $(function() {
-    $( "#radio" ).buttonset();
+	$('#toast').on('click', function () {
+    $(this).button('toggle'),
+    $('#dead').button('toggle')
   });
-  
+ 
 	</script>
 	
 </head>
@@ -138,16 +142,16 @@ foreach ($lines as $key => $card) {
 	if ($card->setname == "Alternates") {
 
 	} else {
-		echo "<tr><td class='card-title'><a href='$card->url' id='create-user' target='_blank'>$card->title</a></td><td>$set</td><td>";
-		echo '<form><div class="radio" id="radio">';
-    echo "<input type='radio' id='radio0' name='radio' checked='checked'><label for='radio0'>0</label>";
-    echo "<input type='radio' id='radio1' name='radio'><label for='radio1'>1</label>";
-    echo "<input type='radio' id='radio2' name='radio'><label for='radio2'>2</label>";
-    echo "<input type='radio' id='radio3' name='radio'><label for='radio3'>3</label>";
+		echo "<tr class='card-container' data-index='$card->code'><td class='card-title'><a href='$card->url' id='create-user' target='_blank'>$card->title</a></td><td>$set</td><td>";
+		echo "<div class='btn-group' data-toggle='buttons'>";
+    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='0'>0</label>";
+    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='1'>1</label>";
+    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='2'>2</label>";
+    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='3'>3</label>";
     if ($game == "doomtown") {
-	    echo "<input type='radio' id='radio4' name='radio'><label for='radio4'>4</label>";
+	    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='4'>4</label>";
     }
-    echo '</div></form></td></tr>';
+    echo '</div></td></tr>';
 	}
 }
 
