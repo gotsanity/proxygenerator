@@ -1,0 +1,20 @@
+.menu-item {
+	min-width: 100px;
+	border: 1px solid;
+	float: left;
+	text-align: center;
+}
+
+.menu-item a {
+	text-decoration: none;
+	margin: 10px 3px;
+}
+
+.selected {
+	background: #ccc;
+}
+
+.navigation {
+	overflow: auto;
+}
+
