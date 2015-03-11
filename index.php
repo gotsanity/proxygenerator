@@ -136,23 +136,24 @@ $lines = json_decode($lines_coded);
 <div class="navigation">
 <?php
 foreach ($supported_games as $g => $site) {
-	echo "<div class='menu-item";
+	echo "<div class='btn-group btn-group-sm' role='group'>";
 	if ($_GET['game'] == $g) {
-		echo " selected";
+		echo "<a href='/?game=$g' class='btn btn-default active' role='button'>$g</a>";
+	} else {
+		echo "<a href='/?game=$g' class='btn btn-default' role='button'>$g</a>";
 	}
-	echo "'><a href='?game=$g'>$g</a></div>";
+	echo "</div>";
 }
 ?>
 
 </div>
 <hr />
 
-<div id="dialog-form" title="Add Card">
-  <p class="validateTips">All form fields are required.</p>
- 
-</div>
+<div class="container-fluid">
+	<div class="row">
 
-<table>
+<div class="col-md-6">
+	<table class="table table-striped table-bordered">
 <?php
 
 switch ($_GET['sort']) {
@@ -184,8 +185,28 @@ foreach ($lines as $key => $card) {
 }
 
 ?>
-</table>
+	</table>
+</div>
 
+<div class="col-md-6">
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>Card</th>
+			<th>Quantity</th>
+			<th>Action</th>
+		<tr class="proxy-list">
+			
+		</tr>
+	</table>
+</div>
+
+</div>
+</div>
+
+<div id="dialog-form" title="Add Card">
+  <p class="validateTips">All form fields are required.</p>
+ 
+</div>
 </body>
 
 <pre>
