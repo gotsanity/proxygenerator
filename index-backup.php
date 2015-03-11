@@ -40,7 +40,7 @@ $lines = json_decode($lines_coded);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
-    <!-- link href="css/bootstrap.min.css" rel="stylesheet" -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,60 +49,24 @@ $lines = json_decode($lines_coded);
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<link rel="stylesheet" href="css/jquery-ui.css" />
-	<link rel="stylesheet" href="css/jquery-ui.theme.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 	<link href="assets/stylesheet.css" rel="stylesheet" type="text/css">
 	<title>Project Mulligan LCG/ECG Proxy Generator</title>
 	
 	<script>
   $(function() {
-    var dialog, form, qty, card, cardlist;
+    var dialog, form, qty, card;
     var cardid = "123456";
-    cardlist = <?php echo $lines_coded; ?>;
+ 
 
-		console.log(cardlist);
-
-    function removeCard() {
+    function addCard(qty, cardid) {
       var valid = true;
 
       if ( valid ) {
 
         dialog.dialog( "close" );
-        alert("removing card");
-      }
-      return valid;
-    }
-
-    function addCard1() {
-      var valid = true;
-
-      if ( valid ) {
-
-        dialog.dialog( "close" );
-        alert("adding 1 card");
-      }
-      return valid;
-    }
-
-    function addCard2() {
-      var valid = true;
-
-      if ( valid ) {
-
-        dialog.dialog( "close" );
-        alert("adding 2 cards");
-      }
-      return valid;
-    }
-    
-    function addCard3() {
-      var valid = true;
-
-      if ( valid ) {
-
-        dialog.dialog( "close" );
-        alert("adding 3 cards");
+        alert(cardid);
       }
       return valid;
     }
@@ -110,12 +74,12 @@ $lines = json_decode($lines_coded);
     dialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
       modal: true,
-      position: {my: "center", at: "center", of: window},
+      position: {my: "center", at: "top", of: window},
       buttons: {
-        "0": removeCard,
-        "1": addCard1,
-        "2": addCard2,
-        "3": addCard3,
+        "0": addCard,
+        "1": addCard,
+        "2": addCard,
+        "3": addCard,
       }
     });
  
@@ -127,11 +91,10 @@ $lines = json_decode($lines_coded);
     	var id = "#" + $(this).attr('id');
     	$(this).addClass("active");
     }); */
-
-		var index;
-		for (index = 0; index < cardlist.length; ++index) {
-	    $("#" + cardlist[index].code).buttonset();
-    }
+    
+    $(function() {
+	    $("#radio").buttonset();
+    });
   });
  
 	</script>
@@ -186,15 +149,15 @@ foreach ($lines as $key => $card) {
 
 	} else {
 		echo "<tr class='card-container' data-index='$card->code'>\n<td class='card-title'>\n$card->title</td>\n<td>$set</td>\n<td>\n";
-		echo "<form id='$card->code' name='$card->code'>\n";
-    echo "<input type='radio' id='0-$card->code' name='$card->code' value='0' checked><label class='btn btn-xs btn-default' for='$card->code'>0</label>\n";
-    echo "<input type='radio' id='1-$card->code' name='$card->code' value='1'><label class='btn btn-xs btn-default' for='$card->code'>1</label>\n";
-    echo "<input type='radio' id='2-$card->code' name='$card->code' value='2'><label class='btn btn-xs btn-default' for='$card->code'>2</label>\n";
-    echo "<input type='radio' id='3-$card->code' name='$card->code' value='3'><label class='btn btn-xs btn-default' for='$card->code'>3</label>\n";
+		echo "<div class='btn-group' data-toggle='buttons' id='radio'>\n";
+    echo "<label class='btn btn-xs btn-default' id='$card->code'><input type='radio' name='qty-$card->code' value='0'>0</label>\n";
+    echo "<label class='btn btn-xs btn-default' id='$card->code'><input type='radio' name='qty-$card->code' value='1'>1</label>\n";
+    echo "<label class='btn btn-xs btn-default' id='$card->code'><input type='radio' name='qty-$card->code' value='2'>2</label>\n";
+    echo "<label class='btn btn-xs btn-default' id='$card->code'><input type='radio' name='qty-$card->code' value='3'>3</label>\n";
     if ($game == "doomtown") {
-	    echo "<input type='radio' id='4-$card->code' name='$card->code' value='4'><label class='btn btn-xs btn-default' for='$card->code'>4</label>\n";
+	    echo "<label class='btn btn-xs btn-default'><input type='radio' name='qty-$card->code' value='4'>4</label>\n";
     }
-    echo "</form>\n</td>\n</tr>\n";
+    echo "</div>\n</td>\n</tr>\n";
 	}
 }
 
