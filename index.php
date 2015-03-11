@@ -57,10 +57,8 @@ $lines = json_decode($lines_coded);
 	
 	<script>
   $(function() {
-    var dialog, form, qty, card, cardlist, cardid;
-    cardlist = <?php echo $lines_coded; ?>;
-
-		console.log(cardlist);
+    var dialog, form, qty, card, cardObjects, cardid;
+    cardObjects = <?php echo $lines_coded; ?>;
 
 
     function removeCard() {
@@ -74,13 +72,41 @@ $lines = json_decode($lines_coded);
       return valid;
     }
 
+		function findCard(cardId){
+				return $.grep(cardObjects, function(n, i){
+				  return n.code == cardId;
+				});
+		};
+
     function addCard1() {
       var valid = true;
 
       if ( valid ) {
 				cardid = $(this).data('index');
+				var thisCard = findCard(cardid);
+				console.log(thisCard);
         dialog.dialog( "close" );
-        alert("adding 1 " + cardid);
+				$("#card-list").find('tbody')
+						.append($('<tr>')
+								.append($('<td>')
+					        .text(thisCard[0].title)
+								)
+								.append($('<td>')
+					        .text('1')
+								)
+								.append($('<td>')
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Modify')
+									)
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Remove')
+									)								)
+						);
+
       }
       return valid;
     }
@@ -189,12 +215,12 @@ foreach ($lines as $key => $card) {
 </div>
 
 <div class="col-md-6">
-	<table class="table table-striped table-bordered">
+	<table id="card-list" class="table table-striped table-bordered">
 		<tr>
 			<th>Card</th>
 			<th>Quantity</th>
 			<th>Action</th>
-		<tr class="proxy-list">
+		<tr>
 			
 		</tr>
 	</table>
