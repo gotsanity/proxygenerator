@@ -8,7 +8,7 @@ $supported_games = array(
 $dir = dirname(__FILE__).'/'; 
 
 foreach ($supported_games as $game => $address) {
-	if(date("Y-m-d") > date("Y-m-d", filemtime($dir."assets/".$game.".txt"))) {
+	if(date("Y-m-d") < date("Y-m-d", filemtime($dir."assets/".$game.".txt"))) {
 		// update card assets
 		set_time_limit(0);
 		$fp = fopen ($dir . 'assets/'.$game.'.txt', 'w+');//This is the file where we save the    information
@@ -40,7 +40,7 @@ $lines = json_decode($lines_coded);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap -->
-    <!-- link href="css/bootstrap.min.css" rel="stylesheet" -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,28 +48,28 @@ $lines = json_decode($lines_coded);
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<link rel="stylesheet" href="css/jquery-ui.css" />
-	<link rel="stylesheet" href="css/jquery-ui.theme.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="assets/jquery.min.js"></script>
+	<link rel="stylesheet" href="assets/jquery/jquery-ui.css" />
+	<link rel="stylesheet" href="assets/jquery/jquery-ui.theme.css" />
+	<script src="assets/jquery/jquery-ui.min.js"></script>
 	<link href="assets/stylesheet.css" rel="stylesheet" type="text/css">
 	<title>Project Mulligan LCG/ECG Proxy Generator</title>
 	
 	<script>
   $(function() {
-    var dialog, form, qty, card, cardlist;
-    var cardid = "123456";
+    var dialog, form, qty, card, cardlist, cardid;
     cardlist = <?php echo $lines_coded; ?>;
 
 		console.log(cardlist);
+
 
     function removeCard() {
       var valid = true;
 
       if ( valid ) {
-
+				cardid = $(this).data('index');
         dialog.dialog( "close" );
-        alert("removing card");
+        alert(cardid);
       }
       return valid;
     }
@@ -78,9 +78,9 @@ $lines = json_decode($lines_coded);
       var valid = true;
 
       if ( valid ) {
-
+				cardid = $(this).data('index');
         dialog.dialog( "close" );
-        alert("adding 1 card");
+        alert("adding 1 " + cardid);
       }
       return valid;
     }
@@ -89,9 +89,9 @@ $lines = json_decode($lines_coded);
       var valid = true;
 
       if ( valid ) {
-
+				cardid = $(this).data('index');
         dialog.dialog( "close" );
-        alert("adding 2 cards");
+        alert("adding 2 " + cardid);
       }
       return valid;
     }
@@ -100,9 +100,9 @@ $lines = json_decode($lines_coded);
       var valid = true;
 
       if ( valid ) {
-
+				cardid = $(this).data('index');
         dialog.dialog( "close" );
-        alert("adding 3 cards");
+        alert("adding 3 " + cardid);
       }
       return valid;
     }
@@ -119,19 +119,11 @@ $lines = json_decode($lines_coded);
       }
     });
  
-    $( ".card-title" ).on( "click", function() {
+    $( ".add-card" ).on( "click", function() {
+			dialog.data('index', $(this).attr('data-index'));
       dialog.dialog( "open" );
     });
     
-/*    $(".btn").on("click", function() {
-    	var id = "#" + $(this).attr('id');
-    	$(this).addClass("active");
-    }); */
-
-		var index;
-		for (index = 0; index < cardlist.length; ++index) {
-	    $("#" + cardlist[index].code).buttonset();
-    }
   });
  
 	</script>
@@ -186,15 +178,8 @@ foreach ($lines as $key => $card) {
 
 	} else {
 		echo "<tr class='card-container' data-index='$card->code'>\n<td class='card-title'>\n$card->title</td>\n<td>$set</td>\n<td>\n";
-		echo "<form id='$card->code' name='$card->code'>\n";
-    echo "<input type='radio' id='0-$card->code' name='$card->code' value='0' checked><label class='btn btn-xs btn-default' for='$card->code'>0</label>\n";
-    echo "<input type='radio' id='1-$card->code' name='$card->code' value='1'><label class='btn btn-xs btn-default' for='$card->code'>1</label>\n";
-    echo "<input type='radio' id='2-$card->code' name='$card->code' value='2'><label class='btn btn-xs btn-default' for='$card->code'>2</label>\n";
-    echo "<input type='radio' id='3-$card->code' name='$card->code' value='3'><label class='btn btn-xs btn-default' for='$card->code'>3</label>\n";
-    if ($game == "doomtown") {
-	    echo "<input type='radio' id='4-$card->code' name='$card->code' value='4'><label class='btn btn-xs btn-default' for='$card->code'>4</label>\n";
-    }
-    echo "</form>\n</td>\n</tr>\n";
+		echo "<div data-index='$card->code' class='add-card btn btn-xs btn-default'>Add Card</div>\n";
+    echo "</td>\n</tr>\n";
 	}
 }
 
