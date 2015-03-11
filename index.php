@@ -88,6 +88,7 @@ $lines = json_decode($lines_coded);
         dialog.dialog( "close" );
 				$("#card-list").find('tbody')
 						.append($('<tr>')
+								.attr('data-index', cardid)
 								.append($('<td>')
 					        .text(thisCard[0].title)
 								)
@@ -116,19 +117,97 @@ $lines = json_decode($lines_coded);
 
       if ( valid ) {
 				cardid = $(this).data('index');
+				var thisCard = findCard(cardid);
+				console.log(thisCard);
         dialog.dialog( "close" );
-        alert("adding 2 " + cardid);
+				$("#card-list").find('tbody')
+						.append($('<tr>')
+								.attr('data-index', cardid)
+								.append($('<td>')
+					        .text(thisCard[0].title)
+								)
+								.append($('<td>')
+					        .text('2')
+								)
+								.append($('<td>')
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Modify')
+									)
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Remove')
+									)								)
+						);
+
       }
       return valid;
     }
-    
     function addCard3() {
       var valid = true;
 
       if ( valid ) {
 				cardid = $(this).data('index');
+				var thisCard = findCard(cardid);
+				console.log(thisCard);
         dialog.dialog( "close" );
-        alert("adding 3 " + cardid);
+				$("#card-list").find('tbody')
+						.append($('<tr>')
+								.attr('data-index', cardid)
+								.append($('<td>')
+					        .text(thisCard[0].title)
+								)
+								.append($('<td>')
+					        .text('3')
+								)
+								.append($('<td>')
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Modify')
+									)
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Remove')
+									)								)
+						);
+
+      }
+      return valid;
+    }
+    function addCard4() {
+      var valid = true;
+
+      if ( valid ) {
+				cardid = $(this).data('index');
+				var thisCard = findCard(cardid);
+				console.log(thisCard);
+        dialog.dialog( "close" );
+				$("#card-list").find('tbody')
+						.append($('<tr>')
+								.attr('data-index', cardid)
+								.append($('<td>')
+					        .text(thisCard[0].title)
+								)
+								.append($('<td>')
+					        .text('4')
+								)
+								.append($('<td>')
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Modify')
+									)
+					        .append($('<div>')
+										.attr('data-index', cardid)
+										.addClass('btn btn-xs btn-default')
+										.text('Remove')
+									)								)
+						);
+
       }
       return valid;
     }
@@ -146,6 +225,8 @@ $lines = json_decode($lines_coded);
     });
  
     $( ".add-card" ).on( "click", function() {
+			$(this).attr('disabled', true);
+			$(this).text('Added');
 			dialog.data('index', $(this).attr('data-index'));
       dialog.dialog( "open" );
     });
