@@ -61,13 +61,16 @@ $lines = json_decode($lines_coded);
     cardObjects = <?php echo $lines_coded; ?>;
 
 
-    function removeCard() {
+    function removeCard(thisCard) {
       var valid = true;
-
+			var cardId = thisCard[0].code;
       if ( valid ) {
-				cardid = $(this).data('index');
         dialog.dialog( "close" );
-        alert(cardid);
+				$('.' + cardId).remove();
+				$('#card-button-' + cardId)
+					.removeAttr('disabled')
+					.text("Add Card");
+        console.log("removed " + cardId);
       }
       return valid;
     }
@@ -84,7 +87,6 @@ $lines = json_decode($lines_coded);
       if ( valid ) {
 				cardid = $(this).data('index');
 				var thisCard = findCard(cardid);
-				console.log(thisCard);
         dialog.dialog( "close" );
 				appendCard(thisCard, 1);
       }
@@ -97,7 +99,6 @@ $lines = json_decode($lines_coded);
       if ( valid ) {
 				cardid = $(this).data('index');
 				var thisCard = findCard(cardid);
-				console.log(thisCard);
         dialog.dialog( "close" );
 				appendCard(thisCard, 2);
       }
@@ -109,7 +110,6 @@ $lines = json_decode($lines_coded);
       if ( valid ) {
 				cardid = $(this).data('index');
 				var thisCard = findCard(cardid);
-				console.log(thisCard);
         dialog.dialog( "close" );
 				appendCard(thisCard, 3);
       }
@@ -121,7 +121,6 @@ $lines = json_decode($lines_coded);
       if ( valid ) {
 				cardid = $(this).data('index');
 				var thisCard = findCard(cardid);
-				console.log(thisCard);
         dialog.dialog( "close" );
 				appendCard(thisCard, 4);
       }
@@ -132,6 +131,7 @@ $lines = json_decode($lines_coded);
 			$("#card-list").find('tbody')
 				.append($('<tr>')
 						.attr('data-index', cardid)
+						.addClass(cardid)
 						.append($('<td>')
 			        .text(thisCard[0].title)
 						)
@@ -149,7 +149,7 @@ $lines = json_decode($lines_coded);
 								.addClass('remove-card btn btn-xs btn-default')
 								.text('Remove')
 							).on( "click", function() {
-								console.log("removing card");
+								removeCard(thisCard);
 					    })
 						)
 				);
@@ -229,7 +229,7 @@ foreach ($lines as $key => $card) {
 
 	} else {
 		echo "<tr class='card-container' data-index='$card->code'>\n<td class='card-title'>\n$card->title</td>\n<td>$set</td>\n<td>\n";
-		echo "<div data-index='$card->code' class='add-card btn btn-xs btn-default'>Add Card</div>\n";
+		echo "<div id='card-button-$card->code' data-index='$card->code' class='add-card btn btn-xs btn-default'>Add Card</div>\n";
     echo "</td>\n</tr>\n";
 	}
 }
