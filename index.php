@@ -86,28 +86,7 @@ $lines = json_decode($lines_coded);
 				var thisCard = findCard(cardid);
 				console.log(thisCard);
         dialog.dialog( "close" );
-				$("#card-list").find('tbody')
-						.append($('<tr>')
-								.attr('data-index', cardid)
-								.append($('<td>')
-					        .text(thisCard[0].title)
-								)
-								.append($('<td>')
-					        .text('1')
-								)
-								.append($('<td>')
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Modify')
-									)
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Remove')
-									)								)
-						);
-
+				appendCard(thisCard, 1);
       }
       return valid;
     }
@@ -120,28 +99,7 @@ $lines = json_decode($lines_coded);
 				var thisCard = findCard(cardid);
 				console.log(thisCard);
         dialog.dialog( "close" );
-				$("#card-list").find('tbody')
-						.append($('<tr>')
-								.attr('data-index', cardid)
-								.append($('<td>')
-					        .text(thisCard[0].title)
-								)
-								.append($('<td>')
-					        .text('2')
-								)
-								.append($('<td>')
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Modify')
-									)
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Remove')
-									)								)
-						);
-
+				appendCard(thisCard, 2);
       }
       return valid;
     }
@@ -153,28 +111,7 @@ $lines = json_decode($lines_coded);
 				var thisCard = findCard(cardid);
 				console.log(thisCard);
         dialog.dialog( "close" );
-				$("#card-list").find('tbody')
-						.append($('<tr>')
-								.attr('data-index', cardid)
-								.append($('<td>')
-					        .text(thisCard[0].title)
-								)
-								.append($('<td>')
-					        .text('3')
-								)
-								.append($('<td>')
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Modify')
-									)
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Remove')
-									)								)
-						);
-
+				appendCard(thisCard, 3);
       }
       return valid;
     }
@@ -186,31 +123,37 @@ $lines = json_decode($lines_coded);
 				var thisCard = findCard(cardid);
 				console.log(thisCard);
         dialog.dialog( "close" );
-				$("#card-list").find('tbody')
-						.append($('<tr>')
-								.attr('data-index', cardid)
-								.append($('<td>')
-					        .text(thisCard[0].title)
-								)
-								.append($('<td>')
-					        .text('4')
-								)
-								.append($('<td>')
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Modify')
-									)
-					        .append($('<div>')
-										.attr('data-index', cardid)
-										.addClass('btn btn-xs btn-default')
-										.text('Remove')
-									)								)
-						);
-
+				appendCard(thisCard, 4);
       }
       return valid;
     }
+
+		function appendCard(thisCard, qty) {
+			$("#card-list").find('tbody')
+				.append($('<tr>')
+						.attr('data-index', cardid)
+						.append($('<td>')
+			        .text(thisCard[0].title)
+						)
+						.append($('<td>')
+			        .text(qty)
+						)
+						.append($('<td>')
+			        .append($('<div>')
+								.attr('data-index', cardid)
+								.addClass('modify-card btn btn-xs btn-default')
+								.text('Modify')
+							)
+			        .append($('<div>')
+								.attr('data-index', cardid)
+								.addClass('remove-card btn btn-xs btn-default')
+								.text('Remove')
+							).on( "click", function() {
+								console.log("removing card");
+					    })
+						)
+				);
+		}
 
     dialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
