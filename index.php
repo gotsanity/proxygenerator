@@ -75,6 +75,20 @@ $lines = json_decode($lines_coded);
       return valid;
     }
 
+		function modifyCard(thisCard) {
+			var valid = true;
+			if ( valid ) {
+				removeCard(thisCard);
+				$('#card-button-' + thisCard[0].code).attr('disabled', true);
+				$('#card-button-' + thisCard[0].code).text('Added');
+				console.log("modifying " + thisCard[0].code);
+				dialog.data('index', thisCard[0].code);
+	      dialog.dialog( "open" );
+			}
+			return valid;
+
+		}
+
 		function findCard(cardId){
 				return $.grep(cardObjects, function(n, i){
 				  return n.code == cardId;
@@ -141,16 +155,20 @@ $lines = json_decode($lines_coded);
 						.append($('<td>')
 			        .append($('<div>')
 								.attr('data-index', cardid)
-								.addClass('modify-card btn btn-xs btn-default')
+								.addClass('btn btn-xs btn-default')
 								.text('Modify')
+								.on( "click", function() {
+									modifyCard(thisCard);
+							  })
 							)
 			        .append($('<div>')
 								.attr('data-index', cardid)
-								.addClass('remove-card btn btn-xs btn-default')
+								.addClass('btn btn-xs btn-default')
 								.text('Remove')
-							).on( "click", function() {
-								removeCard(thisCard);
-					    })
+								.click(function() {
+									removeCard(thisCard);
+							  })
+							)
 						)
 				);
 		}
