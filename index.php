@@ -56,10 +56,10 @@ $lines = json_decode($lines_coded);
 	<title>Project Mulligan LCG/ECG Proxy Generator</title>
 	
 	<script>
+
   $(function() {
     var dialog, form, qty, card, cardObjects, cardid;
     cardObjects = <?php echo $lines_coded; ?>;
-
 
     function removeCard(thisCard) {
       var valid = true;
@@ -173,17 +173,40 @@ $lines = json_decode($lines_coded);
 				);
 		}
 
-    dialog = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      modal: true,
-      position: {my: "center", at: "center", of: window},
-      buttons: {
-        "0": removeCard,
-        "1": addCard1,
-        "2": addCard2,
-        "3": addCard3,
-      }
-    });
+		function getParameterByName(name) {
+				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				    results = regex.exec(location.search);
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		if (getParameterByName('game') === "doomtown") {
+				dialog = $( "#dialog-form" ).dialog({
+				  autoOpen: false,
+				  modal: true,
+				  position: {my: "center", at: "center", of: window},
+				  buttons: {
+				    "0": removeCard,
+				    "1": addCard1,
+				    "2": addCard2,
+				    "3": addCard3,
+				    "4": addCard4,
+				  }
+				});
+		} else {
+		  dialog = $( "#dialog-form" ).dialog({
+		    autoOpen: false,
+		    modal: true,
+		    position: {my: "center", at: "center", of: window},
+		    buttons: {
+		      "0": removeCard,
+		      "1": addCard1,
+		      "2": addCard2,
+		      "3": addCard3,
+		    }
+		  });
+
+		}
  
     $( ".add-card" ).on( "click", function() {
 			$(this).attr('disabled', true);
