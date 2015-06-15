@@ -58,7 +58,7 @@ $lines = json_decode($lines_coded);
 	<script>
 
   $(function() {
-    var dialog, form, qty, card, cardObjects, cardid;
+    var dialog, form, qty, card, cardObjects, cardid, decklist = [];
     cardObjects = <?php echo $lines_coded; ?>;
 
     function removeCard(thisCard) {
@@ -142,6 +142,11 @@ $lines = json_decode($lines_coded);
     }
 
 		function appendCard(thisCard, qty) {
+			var cardToPush = { };
+			cardToPush.card = thisCard[0].code;
+			cardToPush.qty = qty;
+			decklist.push(cardToPush);
+			//decklist.thisCard[0].id = qty;
 			$("#card-list").find('tbody')
 				.append($('<tr>')
 						.attr('data-index', cardid)
@@ -171,6 +176,7 @@ $lines = json_decode($lines_coded);
 							)
 						)
 				);
+
 		}
 
 		function getParameterByName(name) {
@@ -178,6 +184,30 @@ $lines = json_decode($lines_coded);
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 				    results = regex.exec(location.search);
 				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		function postData(decklist)
+		{
+
+		var url = "generate.php";
+		var postData = decklist;
+    var postFormStr = "<form method='POST' action='" + url + "'>\n";
+
+    for (var key in postData)
+    {
+			console.log(postData[key]);
+      postFormStr += "<input type='hidden' name='" + postData[key].card + "' value='" + postData[key].qty + "'></input>";
+    }
+
+		if (getParameterByName('game') === "doomtown") {
+    	postFormStr += "<input type='hidden' name='game' value='doomtown'></input>";
+		}
+    postFormStr += "</form>";
+
+    var formElement = $(postFormStr);
+
+    $('body').append(formElement);
+    $(formElement).submit();
 		}
 
 		if (getParameterByName('game') === "doomtown") {
@@ -214,7 +244,12 @@ $lines = json_decode($lines_coded);
 			dialog.data('index', $(this).attr('data-index'));
       dialog.dialog( "open" );
     });
-    
+
+    $( "#generate" ).on( "click", function() {
+			console.log(JSON.stringify(decklist));
+
+			postData(decklist);
+    });    
   });
  
 	</script>
@@ -235,6 +270,11 @@ foreach ($supported_games as $g => $site) {
 	}
 	echo "</div>";
 }
+
+echo "<div class='btn-group btn-group-sm' role='group'>";
+echo "<div id='generate' class='btn btn-default' role='button'>Generate</div>";
+echo "</div>";
+
 ?>
 
 </div>
