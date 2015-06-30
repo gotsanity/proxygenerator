@@ -36,9 +36,64 @@ if ($_POST['game']) {
 
 $lines_coded = file_get_contents($dir."assets/".$game.".txt");
 $lines = json_decode($lines_coded);
+?>
+
+<html>
+<head>
+	<link href="assets/print.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<?php
+
+/*  code for placeholders 
+foreach ($_POST as $k => $v) {
+	foreach ($lines as $lk => $lv) {
+		if ($lv->code == $k) {
+			while ($v > 0) {
+				
+				print "<div class='placeholder'>";
+				print "<div class='row'><div class='set'>$lv->setname</div></div>";
+				print "<div class='row'><div class='title'>$lv->title</div></div>";
+				print "<div class='row'><div class='number'>Card Number: $lv->number</div></div>";
+  			print "</div>";
+
+				$v--;
+			}
+		}
+	}
+}
+
+/* end code for placeholders */
 
 
+/* code for proxy cards */
+foreach ($_POST as $k => $v) {
+	foreach ($lines as $lk => $lv) {
+		if ($lv->code == $k) {
+			while ($v > 0) {
+				
+				print "<div class='card'>";
+				print "<div class='$lv->type_code'>";
+				print "<div class='$lv->faction_code'>";
+				print "<div class='title'>$lv->title</div>";
+				print "<div class='cardart'></div>";
+				print "<div class='type'>$lv->type - $lv->subtype</div>";
+				print "<div class='cost'>$lv->advancementcost</div>";
+				print "<div class='agendapoints'>$lv->agendapoints</div>";
+				print "<div class='text'>$lv->text<div class='flavor'>$lv->flavor</div></div>";
+				print "</div></div></div>";
 
+				$v--;
+				//print "<pre>";
+				//print_r($lv);
+				//print "</pre>";
+			}
+		}
+	}
+}
+/* end proxy code */
+
+/*    code for images  */
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
 		if ($lv->code == $k) {
@@ -49,9 +104,9 @@ foreach ($_POST as $k => $v) {
 		}
 	}
 }
-
-print "<pre>";
-//print_r($lines);
-print "</pre>";
+/* end image code */
 
 ?>
+
+</body>
+</html>

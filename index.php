@@ -70,7 +70,18 @@ $lines = json_decode($lines_coded);
 				$('#card-button-' + cardId)
 					.removeAttr('disabled')
 					.text("Add Card");
+
+				for (var key in decklist)
+				{
+					if (decklist[key].card === cardId)
+					{
+						console.log("deleting " + cardId + " at key " + key);
+						delete decklist[key];
+					}
+				}
+
         console.log("removed " + cardId);
+				console.log(decklist);
       }
       return valid;
     }
@@ -146,7 +157,6 @@ $lines = json_decode($lines_coded);
 			cardToPush.card = thisCard[0].code;
 			cardToPush.qty = qty;
 			decklist.push(cardToPush);
-			//decklist.thisCard[0].id = qty;
 			$("#card-list").find('tbody')
 				.append($('<tr>')
 						.attr('data-index', cardid)

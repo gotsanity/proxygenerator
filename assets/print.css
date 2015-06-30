@@ -1,0 +1,160 @@
+@page  
+{ 
+    size: auto;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+    margin: 5mm 5mm 5mm 5mm;  
+}
+
+div.card {
+	width: 63mm;
+	height: 86mm;
+	border: 1px solid #000;
+	margin: 1mm;
+	padding: 1mm;
+	position: relative;
+}
+
+div.card div.agenda div.haas-bioroid {
+	background-image: url("blanks/agenda/agenda_haas.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.agenda div.cost {
+	position: absolute;
+	right: 5.7mm;
+	top: 4.5mm;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+div.card div.agenda div.title {
+	position: absolute;
+	top: 5.5mm;
+	left: 6mm;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+div.card div.agenda div.type {
+	position: absolute;
+	top: 55.5mm;
+	left: 20mm;
+	font-size: 0.7em;
+}
+
+div.card div.agenda div.agendapoints {
+	position: absolute;
+	top: 45.5mm;
+	left: 7mm;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+div.card div.agenda div.text {
+	position: absolute;
+	width: 50mm;
+	top: 61mm;
+	left: 7mm;
+	font-size: 0.5em;
+}
+
+div.card div.agenda div.cardart:after {
+	position: absolute;
+	top: 22.5mm;
+	left: 22mm;
+	content: "PROXY";
+	color: gray;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+div.card div.agenda div.nbn {
+	background-image: url("blanks/agenda/agenda_nbn.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.agenda div.nbn div.agendapoints {
+	top: 44.5mm;
+}
+
+div.card div.agenda div.weyland-consortium {
+	background-image: url("blanks/agenda/agenda_weyland.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.agenda div.jinteki {
+	background-image: url("blanks/agenda/agenda_jinteki.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.agenda div.neutral {
+	background-image: url("blanks/agenda/agenda_neutral.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.text {
+	width: 100%;
+	text-align: center;
+}
+
+div.placeholder {
+	width: 63mm;
+	height: 86mm;
+	border: 1px solid #000;
+	margin: 1mm;
+	padding: 1mm;
+	display: table;
+	float: left;
+}
+
+div.placeholder div.row {
+	display: table-row;
+}
+
+div.placeholder div.title {
+	font-weight: bold;
+	color: gray;
+	font-size: 2em;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+div.placeholder div.number {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;
+	display: table-cell;
+	vertical-align: bottom;
+}
+
+div.placeholder div.set {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5em;
+	display: table-cell;
+	vertical-align: top;
+}
+
+
+img {
+	width: 63mm;
+	height: 86mm;
+}
