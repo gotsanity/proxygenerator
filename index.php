@@ -196,10 +196,9 @@ $lines = json_decode($lines_coded);
 				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 		}
 
-		function postData(decklist)
+		function postData(decklist, url)
 		{
 
-		var url = "generate.php";
 		var postData = decklist;
     var postFormStr = "<form method='POST' action='" + url + "'>\n";
 
@@ -258,8 +257,21 @@ $lines = json_decode($lines_coded);
     $( "#generate" ).on( "click", function() {
 			console.log(JSON.stringify(decklist));
 
-			postData(decklist);
+			postData(decklist, "generate.php");
+    });  
+
+    $( "#placeholder-list" ).on( "click", function() {
+			console.log(JSON.stringify(decklist));
+
+			postData(decklist, "placeholder.php");
     });    
+
+    $( "#placeholder-sets" ).on( "click", function() {
+			console.log(JSON.stringify(decklist));
+
+			postData(null, "placeholder.php");
+    }); 
+
   });
  
 	</script>
@@ -271,18 +283,20 @@ $lines = json_decode($lines_coded);
 
 <div class="navigation">
 <?php
+echo "<div class='align-left btn-group btn-group-sm' role='group'>";
 foreach ($supported_games as $g => $site) {
-	echo "<div class='btn-group btn-group-sm' role='group'>";
 	if ($_GET['game'] == $g) {
 		echo "<a href='/?game=$g' class='btn btn-default active' role='button'>$g</a>";
 	} else {
 		echo "<a href='/?game=$g' class='btn btn-default' role='button'>$g</a>";
 	}
-	echo "</div>";
 }
+echo "</div>";
 
-echo "<div class='btn-group btn-group-sm' role='group'>";
-echo "<div id='generate' class='btn btn-default' role='button'>Generate</div>";
+echo "<div class='align-right btn-group btn-group-sm' role='group'>";
+echo "<div id='generate' class='btn btn-default' role='button'>Generate Proxies</div>";
+echo "<div id='placeholder-list' class='btn btn-default' role='button'>Generate Placeholders</div>";
+echo "<div id='placeholder-sets' class='btn btn-default' role='button'>Generate Full Set of Placeholders</div>";
 echo "</div>";
 
 ?>

@@ -136,6 +136,14 @@ div.placeholder div.title {
 	vertical-align: middle;
 }
 
+div.placeholder div.faction {
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.2em;
+	display: table-cell;
+	vertical-align: bottom;
+}
+
 div.placeholder div.number {
 	text-align: center;
 	font-weight: bold;
@@ -152,7 +160,6 @@ div.placeholder div.set {
 	display: table-cell;
 	vertical-align: top;
 }
-
 
 img {
 	width: 63mm;

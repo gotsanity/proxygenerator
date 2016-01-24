@@ -18,3 +18,13 @@
 	overflow: auto;
 }
 
+.navigation .align-right {
+	float: right;
+	margin-right: 15px;
+}
+
+.navigation .align-left {
+	float: left;
+	margin-left: 15px;
+}
+
