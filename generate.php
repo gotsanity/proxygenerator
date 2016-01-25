@@ -56,8 +56,8 @@ foreach ($_POST as $k => $v) {
 				print "<div class='$lv->faction_code'>";
 				print "<div class='title'>$lv->title</div>";
 				print "<div class='cardart'></div>";
-				print "<div class='type'>$lv->type - $lv->subtype</div>";
-				print "<div class='cost'>$lv->advancementcost</div>";
+				print "<div class='type'>$lv->subtype</div>";
+				print "<div class='cost'>$lv->advancementcost$lv->cost</div>";
 				print "<div class='agendapoints'>$lv->agendapoints</div>";
 				print "<div class='text'>$lv->text<div class='flavor'>$lv->flavor</div></div>";
 				print "</div></div></div>";

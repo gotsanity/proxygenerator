@@ -16,10 +16,13 @@ div.card {
 	position: relative;
 }
 
-.pagebreak:nth-of-type(1n) {
-        page-break-after: always;
+
+div.pagebreak {
+	page-break-after: always;
 }
 
+
+/* start agenda styles */
 div.card div.agenda div.haas-bioroid {
 	background-image: url("blanks/agenda/agenda_haas.png");
 	background-size: 63mm 86mm;
@@ -113,6 +116,94 @@ div.card div.agenda div.neutral {
 	height: 86mm;
 }
 
+/* end agenda styles */
+
+/* start operation styles */
+
+div.card div.operation div.jinteki {
+	background-image: url("blanks/operation/operation_jinteki.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.operation div.nbn {
+	background-image: url("blanks/operation/operation_nbn.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.operation div.neutral {
+	background-image: url("blanks/operation/operation_neutral.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.operation div.weyland-consortium {
+	background-image: url("blanks/operation/operation_weyland.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.operation div.haas-bioroid {
+	background-image: url("blanks/operation/operation_haas.png");
+	background-size: 63mm 86mm;
+	background-repeat: none;
+	width: 63mm;
+	height: 86mm;
+}
+
+div.card div.operation div.title {
+	position: absolute;
+	top: 4mm;
+	left: 17mm;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+div.card div.operation div.text {
+	position: absolute;
+	width: 48mm;
+	top: 58mm;
+	left: 9mm;
+	font-size: 0.5em;
+}
+
+div.card div.operation div.type {
+	position: absolute;
+	top: 51.5mm;
+	left: 24mm;
+	font-size: 0.7em;
+}
+
+div.card div.operation div.cost {
+	position: absolute;
+	left: 7.2mm;
+	top: 6.5mm;
+	font-weight: bold;
+        color: white;
+	font-size: 1.2em;
+}
+
+div.card div.operation div.cardart:after {
+	position: absolute;
+	top: 24.5mm;
+	left: 18mm;
+	content: "PROXY";
+	color: gray;
+	font-weight: bold;
+	font-size: 2em;
+}
+
+/* end operation styles */
+
 div.card div.text {
 	width: 100%;
 	text-align: center;
@@ -135,7 +226,7 @@ div.placeholder div.row {
 div.placeholder div.title {
 	font-weight: bold;
 	color: gray;
-	font-size: 2em;
+	font-size: 1.5em;
 	text-align: center;
 	display: table-cell;
 	vertical-align: middle;
@@ -144,7 +235,7 @@ div.placeholder div.title {
 div.placeholder div.faction {
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1em;
 	display: table-cell;
 	vertical-align: bottom;
 }
@@ -152,7 +243,7 @@ div.placeholder div.faction {
 div.placeholder div.number {
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	display: table-cell;
 	vertical-align: bottom;
 }
@@ -161,7 +252,7 @@ div.placeholder div.set {
 	width: 100%;
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	display: table-cell;
 	vertical-align: top;
 }

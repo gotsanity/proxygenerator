@@ -47,16 +47,23 @@ $lines = json_decode($lines_coded);
 <?php
 
 /*  code for placeholders */
+$numcards = 0;
+print "<div class='pagebreak'>";
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
 		if ($lv->code == $k) {
 			while ($v > 0) {
+				$numcards++;
 				printCard($lv);
+				if (($numcards % 9) == 0) {
+					print "</div><div class='pagebreak'>";
+				}
 				$v--;
 			}
 		}
 	}
 }
+print "</div>";
 
 /* end code for placeholders */
 
