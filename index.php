@@ -5,10 +5,11 @@ $supported_games = array(
 	"netrunner" => "http://netrunnerdb.com/api/cards/"
 );
 
+
 $dir = dirname(__FILE__).'/'; 
 
 foreach ($supported_games as $game => $address) {
-	if(date("Y-m-d") < date("Y-m-d", filemtime($dir."assets/".$game.".txt"))) {
+	if(date("Y-m-d") > date("Y-m-d", filemtime($dir."assets/".$game.".txt"))) {
 		// update card assets
 		set_time_limit(0);
 		$fp = fopen ($dir . 'assets/'.$game.'.txt', 'w+');//This is the file where we save the    information

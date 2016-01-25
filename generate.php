@@ -45,27 +45,6 @@ $lines = json_decode($lines_coded);
 <body>
 <?php
 
-/*  code for placeholders */
-foreach ($_POST as $k => $v) {
-	foreach ($lines as $lk => $lv) {
-		if ($lv->code == $k) {
-			while ($v > 0) {
-				
-				print "<div class='placeholder'>";
-				print "<div class='row'><div class='set'>$lv->setname</div></div>";
-				print "<div class='row'><div class='title'>$lv->title</div></div>";
-				print "<div class='row'><div class='number'>Card Number: $lv->number</div></div>";
-  			print "</div>";
-
-				$v--;
-			}
-		}
-	}
-}
-
-/* end code for placeholders */
-
-
 /* code for proxy cards */
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
