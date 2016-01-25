@@ -1,9 +1,10 @@
 @page  
 { 
-    size: auto;   /* auto is the initial value */ 
+    /* size: auto;   /* auto is the initial value */ 
 
     /* this affects the margin in the printer settings */ 
-    margin: 5mm 5mm 5mm 5mm;  
+    margin: 5mm 5mm 5mm 5mm;
+
 }
 
 div.card {
@@ -13,6 +14,10 @@ div.card {
 	margin: 1mm;
 	padding: 1mm;
 	position: relative;
+}
+
+.pagebreak:nth-of-type(1n) {
+        page-break-after: always;
 }
 
 div.card div.agenda div.haas-bioroid {
@@ -114,8 +119,8 @@ div.card div.text {
 }
 
 div.placeholder {
-	width: 63mm;
-	height: 86mm;
+	width: 55mm;
+	height: 75mm;
 	border: 1px solid #000;
 	margin: 1mm;
 	padding: 1mm;

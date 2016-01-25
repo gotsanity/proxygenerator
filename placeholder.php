@@ -51,7 +51,6 @@ foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
 		if ($lv->code == $k) {
 			while ($v > 0) {
-				
 				printCard($lv);
 				$v--;
 			}
@@ -66,22 +65,13 @@ foreach ($_POST as $k => $v) {
 if (!$_POST){
 	foreach ($lines as $lk => $lv) {
 		printCard($lv);
+		$i++;
+		if (($i % 9) == 0) {
+			print "<div class='pagebreak'></div>";
+		} 
 	}
 }
 /* end code for placeholders */
-
-/*    code for images  */
-foreach ($_POST as $k => $v) {
-	foreach ($lines as $lk => $lv) {
-		if ($lv->code == $k) {
-			while ($v > 0) {
-				echo "<img src='" . $dburl . $lv->code . ".png' />";
-				$v--;
-			}
-		}
-	}
-}
-/* end image code */
 
 function printCard($lv) {
 	print "<div class='placeholder'>";
