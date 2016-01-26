@@ -271,7 +271,42 @@ $lines = json_decode($lines_coded);
 			console.log(JSON.stringify(decklist));
 
 			postData(null, "placeholder.php");
-    }); 
+    });
+
+
+// Sort functions
+
+    $( ".sort" ).on( "click", function() {
+			toggleRow($(this).attr('data-index'));
+			$(this).toggleClass("selected");
+    });
+
+    $( ".sort-faction" ).on( "click", function() {
+
+    });
+ 
+	function toggleRow(tag) {
+		// toggle all rows hidden or shown based on tag passed
+
+		if (tag === "neutral-runner") {
+			$( ".neutral.runner" ).toggleClass("hidden");
+
+		} else if (tag === "neutral-corp") {
+			$( ".neutral.corp" ).toggleClass("hidden");	
+		} else {
+			$( "." + tag ).toggleClass("hidden");
+		}
+	}
+
+	function showRow(tag) {
+		// toggle all rows to be shown based on tag passed
+		$( "." + tag ).removeClass("hidden");
+	}
+
+	function hideRow(tag) {
+		// toggle all rows hidden or shown based on tag passed
+		$( "." + tag ).addClass("hidden");
+	}
 
   });
  
@@ -305,6 +340,34 @@ echo "</div>";
 </div>
 <hr />
 
+<div class="navigation">
+	<div class="btn-toolbar" role="toolbar">
+<!--		<div class="align-left btn-group btn-grp-sm" role="group">
+			<div id="sort-faction" class=" sort-faction sort-faction-all btn btn-default selected" data-index="all" role="button">All</div>
+			<div id="sort-faction" class=" sort-faction sort-faction-runner btn btn-default selected" data-index="runner" role="button">Runner</div>
+			<div id="sort-faction" class="sort-faction sort-faction-corp btn btn-default selected" data-index="corp" role="button">Corporation</div>
+		</div> -->
+		<div class="align-left btn-group btn-grp-sm" role="group">
+			<div id="sort" class="sort sort-anarch btn btn-default selected" data-index="anarch" role="button">Anarch</div>
+			<div id="sort" class="sort sort-criminal btn btn-default selected" data-index="criminal" role="button">Criminal</div>
+			<div id="sort" class="sort sort-shaper btn btn-default selected" data-index="shaper" role="button">Shaper</div>
+			<div id="sort" class="sort sort-neutral btn btn-default selected" data-index="neutral-runner" role="button">Neutral</div>
+		</div>
+		<div class="align-left btn-group btn-grp-sm" role="group">
+			<div id="sort" class="sort sort-haas-bioroid btn btn-default selected" data-index="haas-bioroid" role="button">Haas-Bioroid</div>
+			<div id="sort" class="sort sort-jinteki btn btn-default selected" data-index="jinteki" role="button">Jinteki</div>
+			<div id="sort" class="sort sort-nbn btn btn-default selected" data-index="nbn" role="button">NBN</div>
+			<div id="sort" class="sort sort-weyland-consortium btn btn-default selected" data-index="weyland-consortium" role="button">Weyland Consortium</div>
+			<div id="sort" class="sort sort-neutral btn btn-default selected" data-index="neutral-corp" role="button">Neutral</div>
+		</div>
+		<div class="align-left btn-group btn-grp-sm" role="group">
+			<div id="sort" class="sort sort-adam btn btn-default selected" data-index="adam" role="button">Adam</div>
+			<div id="sort" class="sort sort-apex btn btn-default selected" data-index="apex" role="button">Apex</div>
+			<div id="sort" class="sort sort-sunny-lebeau btn btn-default selected" data-index="sunny-lebeau" role="button">Sunny Lebeau</div>
+		</div>
+	</div>
+</div>
+
 <div class="container-fluid">
 	<div class="row">
 
@@ -334,7 +397,7 @@ foreach ($lines as $key => $card) {
 	if ($card->setname == "Alternates") {
 
 	} else {
-		echo "<tr class='card-container' data-index='$card->code'>\n<td class='card-title'>\n$card->title</td>\n<td>$set</td>\n<td>\n";
+		echo "<tr class='card-container $card->side_code $card->faction_code $card->type_code $card->set_code' data-index='$card->code'>\n<td class='card-title'>\n$card->title</td>\n<td>$set</td>\n<td>\n";
 		echo "<div id='card-button-$card->code' data-index='$card->code' class='add-card btn btn-xs btn-default'>Add Card</div>\n";
     echo "</td>\n</tr>\n";
 	}
