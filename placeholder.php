@@ -47,41 +47,52 @@ $lines = json_decode($lines_coded);
 <?php
 
 /*  code for placeholders */
-$numcards = 0;
-print "<div class='pagebreak'>";
-foreach ($_POST as $k => $v) {
-	foreach ($lines as $lk => $lv) {
-		if ($lv->code == $k) {
-			while ($v > 0) {
-				$numcards++;
-				printCard($lv);
-				if (($numcards % 9) == 0) {
-					print "</div><div class='pagebreak'>";
+
+
+
+if ($_POST) {
+	$numcards = 0;
+	print "<div class='pagebreak'>";
+	foreach ($_POST as $k => $v) {
+		foreach ($lines as $lk => $lv) {
+			if ($lv->code == $k) {
+				while ($v > 0) {
+					$numcards++;
+					printCard($lv, $numcards);
+					if (($numcards % 9) == 0) {
+						$numcards = 0;
+						print "</div><div class='pagebreak'>";
+					}
+					$v--;
 				}
-				$v--;
 			}
 		}
 	}
+	print "</div>";
 }
-print "</div>";
 
 /* end code for placeholders */
 
 /*  code for placeholders full list*/
 
 if (!$_POST){
+$numcards = 0;
+print "<div class='pagebreak'>";
 	foreach ($lines as $lk => $lv) {
-		printCard($lv);
-		$i++;
-		if (($i % 9) == 0) {
-			print "<div class='pagebreak'></div>";
+		$numcards++;
+		printCard($lv, $numcards);
+		if (($numcards % 9) == 0) {
+			$numcards = 0;
+			print "</div><div class='pagebreak'>";
 		} 
 	}
+print "</div>";
 }
+
 /* end code for placeholders */
 
-function printCard($lv) {
-	print "<div class='placeholder'>";
+function printCard($lv, $pos) {
+	print "<div class='placeholder pos-$pos'>";
 	print "<div class='row'><div class='set'>$lv->setname</div></div>";
 	print "<div class='row'><div class='title'>$lv->title</div></div>";
 	print "<div class='row'><div class='faction'>$lv->faction</div></div>";
