@@ -59,8 +59,46 @@ $lines = json_decode($lines_coded);
 	<script>
 
   $(function() {
-    var dialog, form, qty, card, cardObjects, cardid, decklist = [];
+    var dialog, form, qty, card, cardObjects, cardid;
+	var decklist = ["toast", "toast2"];
     cardObjects = <?php echo $lines_coded; ?>;
+	console.log(decklist);
+
+	function appendCard(thisCard, qty) {
+		var cardToPush = { };
+		cardToPush.card = thisCard[0].code;
+		cardToPush.qty = qty;
+		decklist.push(cardToPush);
+		$("#card-list").find('tbody')
+			.append($('<tr>')
+					.attr('data-index', thisCard[0].code)
+					.addClass(cardid)
+					.append($('<td>')
+			    .text(thisCard[0].title)
+					)
+					.append($('<td>')
+			    .text(qty)
+					)
+					.append($('<td>')
+			    .append($('<div>')
+							.attr('data-index', thisCard[0].code)
+							.addClass('btn btn-xs btn-default')
+							.text('Modify')
+							.on( "click", function() {
+								modifyCard(thisCard);
+						  })
+						)
+			    .append($('<div>')
+							.attr('data-index', thisCard[0].code)
+							.addClass('btn btn-xs btn-default')
+							.text('Remove')
+							.click(function() {
+								removeCard(thisCard);
+						  })
+						)
+					)
+			);
+	}
 
     function removeCard(thisCard) {
       var valid = true;
@@ -153,43 +191,6 @@ $lines = json_decode($lines_coded);
       return valid;
     }
 
-		function appendCard(thisCard, qty) {
-			var cardToPush = { };
-			cardToPush.card = thisCard[0].code;
-			cardToPush.qty = qty;
-			decklist.push(cardToPush);
-			$("#card-list").find('tbody')
-				.append($('<tr>')
-						.attr('data-index', cardid)
-						.addClass(cardid)
-						.append($('<td>')
-			        .text(thisCard[0].title)
-						)
-						.append($('<td>')
-			        .text(qty)
-						)
-						.append($('<td>')
-			        .append($('<div>')
-								.attr('data-index', cardid)
-								.addClass('btn btn-xs btn-default')
-								.text('Modify')
-								.on( "click", function() {
-									modifyCard(thisCard);
-							  })
-							)
-			        .append($('<div>')
-								.attr('data-index', cardid)
-								.addClass('btn btn-xs btn-default')
-								.text('Remove')
-								.click(function() {
-									removeCard(thisCard);
-							  })
-							)
-						)
-				);
-
-		}
-
 		function getParameterByName(name) {
 				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -254,6 +255,51 @@ $lines = json_decode($lines_coded);
 			dialog.data('index', $(this).attr('data-index'));
       dialog.dialog( "open" );
     });
+
+	$( "#decklist" ).on( "click", function() {
+		console.log("Loading decklist");
+		decktext = $( "#dialog-decklist" ).dialog({
+			autoOpen: false,
+			modal: true,
+			width: "550",
+			height: "700",
+			position: {my: "center", at: "center", of: window},
+			buttons: {
+				"Submit": function() {
+					text = $("#deck-text").val();
+					deckid = $("#deck-id").val();
+				    $(this).dialog("close");
+					loadDecklist(text, deckid);
+			}
+	    }
+	  });
+		decktext.dialog( "open" );
+		
+	});
+
+	function loadDecklist(deckText, deckId) {
+		var line = deckText.split('\n');
+		console.log("displaying lines of text");
+		var list = [];
+		for (var i = 0; i < line.length; ++i) {
+			if(line[i].search(/\dx/) > -1) {
+				var stripped = line[i].replace(/[\u2022]/g, "");
+				var card = [line[i].charAt(0), stripped.substr(3).trim()];
+				list.push(card);
+			}
+		}
+		console.log(decklist);
+		for (var i = 0; i < list.length; ++i) {
+			var thisCard = findCardByTitle(list[i][1]);
+			appendCard(thisCard, list[i][0]);
+		}
+	}
+
+	function findCardByTitle(title) {
+		return $.grep(cardObjects, function(n, i){
+		  return n.title == title;
+		});
+	}
 
     $( "#generate" ).on( "click", function() {
 			console.log(JSON.stringify(decklist));
@@ -330,6 +376,7 @@ foreach ($supported_games as $g => $site) {
 echo "</div>";
 
 echo "<div class='align-right btn-group btn-group-sm' role='group'>";
+echo "<div id='decklist' class='btn btn-default' role='button'>Load Decklist</div>";
 echo "<div id='generate' class='btn btn-default' role='button'>Generate Proxies</div>";
 echo "<div id='placeholder-list' class='btn btn-default' role='button'>Generate Placeholders</div>";
 echo "<div id='placeholder-sets' class='btn btn-default' role='button'>Generate Full Set of Placeholders</div>";
@@ -426,6 +473,15 @@ foreach ($lines as $key => $card) {
   <p class="validateTips">All form fields are required.</p>
  
 </div>
+
+<div id="dialog-decklist" title="Load from Decklist">
+	<p class="validateTips">Place plain text decklist in textbox to be parsed or supply a deck id number from NRDB in the deckID field.</p>
+	<label for="deck-text">Decklist (Plain Text)</label><br />
+	<textarea id="deck-text" name="deck-text"></textarea><br />
+	<label for="deck-id">Deck ID from NRDB (Optional)</label><br />
+	<input type="text" id="deck-id" name="deck-id" /><br />
+</div>
+
 </body>
 
 <pre>
