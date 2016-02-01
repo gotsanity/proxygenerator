@@ -60,9 +60,8 @@ $lines = json_decode($lines_coded);
 
   $(function() {
     var dialog, form, qty, card, cardObjects, cardid;
-	var decklist = ["toast", "toast2"];
+	var decklist = [];
     cardObjects = <?php echo $lines_coded; ?>;
-	console.log(decklist);
 
 	function appendCard(thisCard, qty) {
 		var cardToPush = { };
@@ -72,7 +71,7 @@ $lines = json_decode($lines_coded);
 		$("#card-list").find('tbody')
 			.append($('<tr>')
 					.attr('data-index', thisCard[0].code)
-					.addClass(cardid)
+					.addClass(thisCard[0].code)
 					.append($('<td>')
 			    .text(thisCard[0].title)
 					)
@@ -101,6 +100,8 @@ $lines = json_decode($lines_coded);
 	}
 
     function removeCard(thisCard) {
+		console.log(thisCard);
+		console.log(decklist);
       var valid = true;
 			var cardId = thisCard[0].code;
       if ( valid ) {
@@ -198,27 +199,25 @@ $lines = json_decode($lines_coded);
 				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 		}
 
-		function postData(decklist, url)
-		{
+		function postData(decklist, url) {
+			var postData = decklist;
+			var postFormStr = "<form method='POST' action='" + url + "'>\n";
 
-		var postData = decklist;
-    var postFormStr = "<form method='POST' action='" + url + "'>\n";
+			for (var key in postData)
+			{
+					console.log(postData[key]);
+			  postFormStr += "<input type='hidden' name='" + postData[key].card + "' value='" + postData[key].qty + "'></input>";
+			}
 
-    for (var key in postData)
-    {
-			console.log(postData[key]);
-      postFormStr += "<input type='hidden' name='" + postData[key].card + "' value='" + postData[key].qty + "'></input>";
-    }
+				if (getParameterByName('game') === "doomtown") {
+				postFormStr += "<input type='hidden' name='game' value='doomtown'></input>";
+				}
+			postFormStr += "</form>";
 
-		if (getParameterByName('game') === "doomtown") {
-    	postFormStr += "<input type='hidden' name='game' value='doomtown'></input>";
-		}
-    postFormStr += "</form>";
+			var formElement = $(postFormStr);
 
-    var formElement = $(postFormStr);
-
-    $('body').append(formElement);
-    $(formElement).submit();
+			$('body').append(formElement);
+			$(formElement).submit();
 		}
 
 		if (getParameterByName('game') === "doomtown") {
@@ -292,6 +291,8 @@ $lines = json_decode($lines_coded);
 		for (var i = 0; i < list.length; ++i) {
 			var thisCard = findCardByTitle(list[i][1]);
 			appendCard(thisCard, list[i][0]);
+			$('#card-button-' + thisCard[0].code).attr('disabled', true);
+			$('#card-button-' + thisCard[0].code).text('Added');
 		}
 	}
 

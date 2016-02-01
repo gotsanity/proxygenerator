@@ -16,7 +16,14 @@
 
 .navigation {
 	overflow: auto;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	margin-top: -5px;
 }
+
+.navigation .selected {
+	background-color: #eee;
+} 
 
 .navigation .align-right {
 	float: right;
@@ -25,7 +32,6 @@
 
 .navigation .align-left {
 	float: left;
-	margin-left: 15px;
 }
 
 #deck-text {
