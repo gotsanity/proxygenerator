@@ -63,6 +63,20 @@ $lines = json_decode($lines_coded);
 	var decklist = [];
     cardObjects = <?php echo $lines_coded; ?>;
 
+	function modifyCard(thisCard) {
+		var valid = true;
+		if ( valid ) {
+			removeCard(thisCard);
+			$('#card-button-' + thisCard[0].code).attr('disabled', true);
+			$('#card-button-' + thisCard[0].code).text('Added');
+			console.log("modifying " + thisCard[0].code);
+			dialog.data('index', thisCard[0].code);
+      dialog.dialog( "open" );
+		}
+		return valid;
+
+	}
+
 	function appendCard(thisCard, qty) {
 		var cardToPush = { };
 		cardToPush.card = thisCard[0].code;
@@ -125,20 +139,6 @@ $lines = json_decode($lines_coded);
       }
       return valid;
     }
-
-		function modifyCard(thisCard) {
-			var valid = true;
-			if ( valid ) {
-				removeCard(thisCard);
-				$('#card-button-' + thisCard[0].code).attr('disabled', true);
-				$('#card-button-' + thisCard[0].code).text('Added');
-				console.log("modifying " + thisCard[0].code);
-				dialog.data('index', thisCard[0].code);
-	      dialog.dialog( "open" );
-			}
-			return valid;
-
-		}
 
 		function findCard(cardId){
 				return $.grep(cardObjects, function(n, i){

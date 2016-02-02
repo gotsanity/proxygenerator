@@ -5,6 +5,8 @@ $supported_games = array(
 	"netrunner" => "http://netrunnerdb.com/api/cards/"
 );
 
+$_POST['proxytype'] = "basic";
+
 $dir = dirname(__FILE__).'/'; 
 
 foreach ($supported_games as $game => $address) {
@@ -40,7 +42,16 @@ $lines = json_decode($lines_coded);
 
 <html>
 <head>
+	<?php
+		if ($_POST['proxytype']) {
+			print '<link href="assets/basic.css" rel="stylesheet" type="text/css">';
+		} else {
+			print '<link href="assets/advanced.css" rel="stylesheet" type="text/css">';
+		}
+	?>
 	<link href="assets/print.css" rel="stylesheet" type="text/css">
+	<link href="assets/icon-style.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <?php
@@ -51,27 +62,68 @@ foreach ($_POST as $k => $v) {
 		if ($lv->code == $k) {
 			while ($v > 0) {
 				
-				print "<div class='card'>";
+				if ($_POST['proxytype']) {
+					print "<div class='card $_POST[proxytype]'>";
+				} else {
+					print "<div class='card'>";
+				}
 				print "<div class='$lv->type_code'>";
 				print "<div class='$lv->faction_code'>";
 				print "<div class='title'>$lv->title</div>";
 				print "<div class='cardart'></div>";
-				print "<div class='type'>$lv->subtype</div>";
-				print "<div class='cost'>$lv->advancementcost$lv->cost</div>";
-				print "<div class='agendapoints'>$lv->agendapoints</div>";
-				print "<div class='text'>$lv->text<div class='flavor'>$lv->flavor</div></div>";
+				print "<div class='type'>$lv->type";
+				if ($lv->subtype) {
+					print " - $lv->subtype";
+				}
+				print "</div>";
+				print "<div class='cost img-circle'>$lv->advancementcost$lv->cost</div>";
+				print "<div class='agendapoints'>";
+				if ($lv->agendapoints) {
+					print "<span class='icon-agenda'></span>$lv->agendapoints";
+				}
+				print "</div>";
+				print "<div class='text'>";
+				echo iconify($lv->text);
+//				print "$lv->text";
+				print "<div class='flavor'>$lv->flavor</div></div>";
+				print "<div class='faction'>";
+				echo iconify("[".$lv->faction_code."]");
+				print "</div>";
 				print "</div></div></div>";
 
 				$v--;
-				//print "<pre>";
-				//print_r($lv);
-				//print "</pre>";
+				print "<pre>";
+				print_r($lv);
+				print "</pre>";
 			}
 		}
 	}
 }
 /* end proxy code */
+function iconify($text) {
 
+	$array_from_to = array (
+		'[Click]' => '<span class="icon-click"></span>',
+		'[Credit]' => '<span class="icon-credit"></span>',
+		'[jinteki]' => '<span class="icon-jinteki"></span>',
+		'[nbn]' => '<span class="icon-nbn"></span>',
+		'[shaper]' => '<span class="icon-shaper-smooth"></span>',
+		'[Recurring Credits]' => '<span class="icon-recurring-credit"></span>',
+		'[Link]' => '<span class="icon-link"></span>',
+		'[Trash]' => '<span class="icon-trash"></span>',
+		'[Memory Unit]' => '<span class="icon-mu"></span>',
+		'[Subroutine]' => '<span class="icon-subroutine"></span>',
+		'[Anarch]' => '<span class="icon-anarch"></span>',
+		'[Criminal]' => '<span class="icon-criminal"></span>',
+		'[haas-bioroid]' => '<span class="icon-haas-bioroid"></span>',
+		'[weyland-consortium]' => '<span class="icon-weyland-consortium"></span>',
+		'[Rez]' => '<span class="icon-rez"></span>',
+		'[]' => '<span class=""></span>'
+	);
+
+	$output = nl2br(str_replace(array_keys($array_from_to), $array_from_to, $text));
+	return $output;
+}
 /*    code for images  */
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {

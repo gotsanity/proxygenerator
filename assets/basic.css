@@ -1,0 +1,108 @@
+@page  
+{ 
+    /* size: auto;   /* auto is the initial value */ 
+
+    /* this affects the margin in the printer settings */ 
+    margin: 5mm 5mm 5mm 5mm;
+
+}
+
+/* start basic styles */
+
+div[class="card basic"] {
+	border: 1px solid #000;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px; /* future proofing */
+}
+
+div[class="card basic"] div.cost {
+	position: absolute;
+	right: 5.7mm;
+	top: 3mm;
+	font-weight: bold;
+	font-size: 1.2em;
+	border: 1px solid #aaa;
+	background-color: #eee;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	padding-top: 4.5px;
+}
+
+div[class="card basic"] div.title {
+	position: absolute;
+	top: 5mm;
+	left: 6mm;
+	font-size: 0.8em;
+	font-weight: bold;
+	border: 1px solid #aaa;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; /* future proofing */
+	background-color: #eee;
+	width: 50mm;
+	height: 5mm;
+	padding-left: 10px;
+	padding-top: 2px;
+}
+
+div[class="card basic"] div.agenda div.agendapoints {
+	position: absolute;
+	top: 49.5mm;
+	left: 7mm;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+div[class="card basic"] div.type {
+	position: absolute;
+	top: 55mm;
+	left: 5mm;
+	width: 53mm;
+	text-align: left;
+	border-bottom: 2px solid #aaa;
+	padding-left: 5px;
+	font-weight: bold;
+	font-size: .6em;
+}
+
+div[class="card basic"] div.text {
+	position: absolute;
+	width: 50mm;
+	text-align: left;
+	top: 61mm;
+	left: 7mm;
+	font-size: 0.5em;
+	border: 1px solid #aaa;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px; /* future proofing */
+	background-color: #eee;
+	width: 55mm;
+	height: 28mm;
+	margin-left: -3mm;
+	margin-top: -7mm;
+	padding-top: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
+	vertical-align: top;
+	z-index: -1;
+	font-size: .60em;
+}
+
+div[class="card basic"] div.flavor {
+	font-style: italic;
+}
+
+div[class="card basic"] div.cardart {
+	visibility: hidden;
+}
+
+div[class="card basic"] div.faction {
+	position: absolute;
+	bottom: 42.5%;
+	left: 20%;
+	font-size: 10em;
+	color: #eee;
+}
