@@ -140,11 +140,11 @@ $lines = json_decode($lines_coded);
       return valid;
     }
 
-		function findCard(cardId){
-				return $.grep(cardObjects, function(n, i){
-				  return n.code == cardId;
-				});
-		};
+	function findCard(cardId){
+			return $.grep(cardObjects, function(n, i){
+			  return n.code == cardId;
+			});
+	};
 
     function addCard1() {
       var valid = true;
@@ -169,6 +169,7 @@ $lines = json_decode($lines_coded);
       }
       return valid;
     }
+
     function addCard3() {
       var valid = true;
 
@@ -180,6 +181,7 @@ $lines = json_decode($lines_coded);
       }
       return valid;
     }
+
     function addCard4() {
       var valid = true;
 
@@ -192,61 +194,61 @@ $lines = json_decode($lines_coded);
       return valid;
     }
 
-		function getParameterByName(name) {
-				name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-				var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-				    results = regex.exec(location.search);
-				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			    results = regex.exec(location.search);
+			return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
+	function postData(decklist, url) {
+		var postData = decklist;
+		var postFormStr = "<form method='POST' action='" + url + "'>\n";
+
+		for (var key in postData)
+		{
+				console.log(postData[key]);
+		  postFormStr += "<input type='hidden' name='" + postData[key].card + "' value='" + postData[key].qty + "'></input>";
 		}
 
-		function postData(decklist, url) {
-			var postData = decklist;
-			var postFormStr = "<form method='POST' action='" + url + "'>\n";
-
-			for (var key in postData)
-			{
-					console.log(postData[key]);
-			  postFormStr += "<input type='hidden' name='" + postData[key].card + "' value='" + postData[key].qty + "'></input>";
+			if (getParameterByName('game') === "doomtown") {
+			postFormStr += "<input type='hidden' name='game' value='doomtown'></input>";
 			}
+		postFormStr += "</form>";
 
-				if (getParameterByName('game') === "doomtown") {
-				postFormStr += "<input type='hidden' name='game' value='doomtown'></input>";
-				}
-			postFormStr += "</form>";
+		var formElement = $(postFormStr);
 
-			var formElement = $(postFormStr);
+		$('body').append(formElement);
+		$(formElement).submit();
+	}
 
-			$('body').append(formElement);
-			$(formElement).submit();
-		}
+	if (getParameterByName('game') === "doomtown") {
+			dialog = $( "#dialog-form" ).dialog({
+			  autoOpen: false,
+			  modal: true,
+			  position: {my: "center", at: "center", of: window},
+			  buttons: {
+			    "0": removeCard,
+			    "1": addCard1,
+			    "2": addCard2,
+			    "3": addCard3,
+			    "4": addCard4,
+			  }
+			});
+	} else {
+	  dialog = $( "#dialog-form" ).dialog({
+	    autoOpen: false,
+	    modal: true,
+	    position: {my: "center", at: "center", of: window},
+	    buttons: {
+	      "0": removeCard,
+	      "1": addCard1,
+	      "2": addCard2,
+	      "3": addCard3,
+	    }
+	  });
 
-		if (getParameterByName('game') === "doomtown") {
-				dialog = $( "#dialog-form" ).dialog({
-				  autoOpen: false,
-				  modal: true,
-				  position: {my: "center", at: "center", of: window},
-				  buttons: {
-				    "0": removeCard,
-				    "1": addCard1,
-				    "2": addCard2,
-				    "3": addCard3,
-				    "4": addCard4,
-				  }
-				});
-		} else {
-		  dialog = $( "#dialog-form" ).dialog({
-		    autoOpen: false,
-		    modal: true,
-		    position: {my: "center", at: "center", of: window},
-		    buttons: {
-		      "0": removeCard,
-		      "1": addCard1,
-		      "2": addCard2,
-		      "3": addCard3,
-		    }
-		  });
-
-		}
+	}
  
     $( ".add-card" ).on( "click", function() {
 			$(this).attr('disabled', true);
@@ -255,9 +257,7 @@ $lines = json_decode($lines_coded);
       dialog.dialog( "open" );
     });
 
-	$( "#decklist" ).on( "click", function() {
-		console.log("Loading decklist");
-		decktext = $( "#dialog-decklist" ).dialog({
+	decktext = $( "#dialog-decklist" ).dialog({
 			autoOpen: false,
 			modal: true,
 			width: "550",
@@ -271,9 +271,12 @@ $lines = json_decode($lines_coded);
 					loadDecklist(text, deckid);
 			}
 	    }
-	  });
+	});
+
+
+	$( "#decklist" ).on( "click", function() {
+		console.log("Loading decklist");
 		decktext.dialog( "open" );
-		
 	});
 
 	function loadDecklist(deckText, deckId) {
