@@ -120,45 +120,6 @@ function printCard($post, $lv, $pos) {
 	print "</div></div></div></div>";
 }
 
-function printCardBackup($post, $lv, $pos) {
-	if ($post['proxytype']) {
-		print "<div class='pos-$pos'><div class='card $post[proxytype]'>";
-	} else {
-		print "<div class='card pos-$pos'>";
-	}
-	print "<div class='$lv->type_code'>";
-	print "<div class='$lv->faction_code'>";
-	print "<div class='titlebar'>";
-	print "<div class='title'>$lv->title</div>";
-	print "<div class='cardart'></div>";
-	print "<div class='cost img-circle'>$lv->advancementcost$lv->cost</div>";
-	print "</div>";
-	print "<div class='centerart'>";
-	$faction = iconify("[".$lv->faction_code."]");
-	print "<div class='faction'>$faction</div>";
-	print "<div class='agendapoints'>";
-	if ($lv->agendapoints) {
-		print "<span class='icon-agenda'></span>$lv->agendapoints";
-	}
-	print "</div></div>";
-	$text = iconify($lv->text);
-	print "<div class='textbox'>";
-	print "<div class='type'>$lv->type";
-	if ($lv->subtype) {
-		print " - $lv->subtype";
-	}
-	print "</div>";
-	print "<div class='text'>$text</div>";
-	print "<div class='flavor'>$lv->flavor</div>";
-	print "</div>";
-	print "<div class='influence'>$faction";
-	for ($i = 0; $i < $lv->factioncost; $i++) {
-		print "<span class='icon-influence'></span>";
-	}
-	print "</div>";
-	print "</div></div></div></div>";
-}
-
 function iconify($text) {
 
 	$array_from_to = array (

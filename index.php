@@ -282,7 +282,7 @@ $lines = json_decode($lines_coded);
 		var list = [];
 		for (var i = 0; i < line.length; ++i) {
 			if(line[i].search(/\dx/) > -1) {
-				var stripped = line[i].replace(/[\u2022]/g, "");
+				var stripped = line[i].replace(/[\u2022|\u2606]/g, "");
 				var card = [line[i].charAt(0), stripped.substr(3).trim()];
 				list.push(card);
 			}
