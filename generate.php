@@ -42,6 +42,7 @@ $lines = json_decode($lines_coded);
 
 <html>
 <head>
+	<meta charset="utf-8">
 	<?php
 		if ($_POST['proxytype']) {
 			print '<link href="assets/basic.css" rel="stylesheet" type="text/css">';
@@ -49,62 +50,120 @@ $lines = json_decode($lines_coded);
 			print '<link href="assets/advanced.css" rel="stylesheet" type="text/css">';
 		}
 	?>
-	<link href="assets/print.css" rel="stylesheet" type="text/css">
-	<link href="assets/icon-style.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/icon-style.css" rel="stylesheet" type="text/css">
+	<link href="assets/print.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <?php
 
 /* code for proxy cards */
+$numcards = 0;
+print "<div class='pagebreak'>";
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
 		if ($lv->code == $k) {
 			while ($v > 0) {
-				
-				if ($_POST['proxytype']) {
-					print "<div class='card $_POST[proxytype]'>";
-				} else {
-					print "<div class='card'>";
-				}
-				print "<div class='$lv->type_code'>";
-				print "<div class='$lv->faction_code'>";
-				print "<div class='title'>$lv->title</div>";
-				print "<div class='cardart'></div>";
-				print "<div class='type'>$lv->type";
-				if ($lv->subtype) {
-					print " - $lv->subtype";
-				}
-				print "</div>";
-				print "<div class='cost img-circle'>$lv->advancementcost$lv->cost</div>";
-				print "<div class='agendapoints'>";
-				if ($lv->agendapoints) {
-					print "<span class='icon-agenda'></span>$lv->agendapoints";
-				}
-				print "</div>";
-				print "<div class='text'>";
-				echo iconify($lv->text);
-//				print "$lv->text";
-				print "<div class='flavor'>$lv->flavor</div></div>";
-				print "<div class='faction'>";
-				echo iconify("[".$lv->faction_code."]");
-				print "</div>";
-				print "</div></div></div>";
+				$numcards++;
+				printCard($_POST, $lv, $numcards);
+				if (($numcards % 9) == 0) {
+					$numcards = 0;
+					print "</div><div class='pagebreak'>";
+				}				
 
 				$v--;
-				print "<pre>";
-				print_r($lv);
-				print "</pre>";
+				//print "<pre>";
+				//print_r($lv);
+				//print "</pre>";
 			}
 		}
 	}
 }
 /* end proxy code */
+
+function printCard($post, $lv, $pos) {
+	if ($post['proxytype']) {
+		print "<div class='pos-$pos'><div class='card $post[proxytype]'>";
+	} else {
+		print "<div class='card pos-$pos'>";
+	}
+	print "<div class='$lv->type_code'>";
+	print "<div class='$lv->faction_code'>";
+	print "<div class='titlebar'>";
+	print "<div class='title'>$lv->title</div>";
+	print "<div class='cardart'></div>";
+	print "<div class='cost img-circle'>$lv->advancementcost$lv->cost</div>";
+	print "</div>";
+	print "<div class='centerart'>";
+	$faction = iconify("[".$lv->faction_code."]");
+	print "<div class='faction'>$faction</div>";
+	print "<div class='agendapoints'>";
+	if ($lv->agendapoints) {
+		print "<span class='icon-agenda'></span>$lv->agendapoints";
+	}
+	print "</div></div>";
+	$text = iconify($lv->text);
+	print "<div class='textbox'>";
+	print "<div class='type'>$lv->type";
+	if ($lv->subtype) {
+		print " - $lv->subtype";
+	}
+	print "</div>";
+	print "<div class='text'>$text</div>";
+	print "<div class='flavor'>$lv->flavor</div>";
+	print "</div>";
+	print "<div class='influence'>$faction";
+	for ($i = 0; $i < $lv->factioncost; $i++) {
+		print "<span class='icon-influence'></span>";
+	}
+	print "</div>";
+	print "</div></div></div></div>";
+}
+
+function printCardBackup($post, $lv, $pos) {
+	if ($post['proxytype']) {
+		print "<div class='pos-$pos'><div class='card $post[proxytype]'>";
+	} else {
+		print "<div class='card pos-$pos'>";
+	}
+	print "<div class='$lv->type_code'>";
+	print "<div class='$lv->faction_code'>";
+	print "<div class='titlebar'>";
+	print "<div class='title'>$lv->title</div>";
+	print "<div class='cardart'></div>";
+	print "<div class='cost img-circle'>$lv->advancementcost$lv->cost</div>";
+	print "</div>";
+	print "<div class='centerart'>";
+	$faction = iconify("[".$lv->faction_code."]");
+	print "<div class='faction'>$faction</div>";
+	print "<div class='agendapoints'>";
+	if ($lv->agendapoints) {
+		print "<span class='icon-agenda'></span>$lv->agendapoints";
+	}
+	print "</div></div>";
+	$text = iconify($lv->text);
+	print "<div class='textbox'>";
+	print "<div class='type'>$lv->type";
+	if ($lv->subtype) {
+		print " - $lv->subtype";
+	}
+	print "</div>";
+	print "<div class='text'>$text</div>";
+	print "<div class='flavor'>$lv->flavor</div>";
+	print "</div>";
+	print "<div class='influence'>$faction";
+	for ($i = 0; $i < $lv->factioncost; $i++) {
+		print "<span class='icon-influence'></span>";
+	}
+	print "</div>";
+	print "</div></div></div></div>";
+}
+
 function iconify($text) {
 
 	$array_from_to = array (
 		'[Click]' => '<span class="icon-click"></span>',
-		'[Credit]' => '<span class="icon-credit"></span>',
+		'[Credits]' => '<span class="icon-credit"></span>',
 		'[jinteki]' => '<span class="icon-jinteki"></span>',
 		'[nbn]' => '<span class="icon-nbn"></span>',
 		'[shaper]' => '<span class="icon-shaper-smooth"></span>',
@@ -113,18 +172,21 @@ function iconify($text) {
 		'[Trash]' => '<span class="icon-trash"></span>',
 		'[Memory Unit]' => '<span class="icon-mu"></span>',
 		'[Subroutine]' => '<span class="icon-subroutine"></span>',
-		'[Anarch]' => '<span class="icon-anarch"></span>',
-		'[Criminal]' => '<span class="icon-criminal"></span>',
+		'[anarch]' => '<span class="icon-anarch"></span>',
+		'[criminal]' => '<span class="icon-criminal"></span>',
 		'[haas-bioroid]' => '<span class="icon-haas-bioroid"></span>',
 		'[weyland-consortium]' => '<span class="icon-weyland-consortium"></span>',
 		'[Rez]' => '<span class="icon-rez"></span>',
-		'[]' => '<span class=""></span>'
+		'[apex]' => '<span class="icon-missing">Apex</span>',
+		'[sunny]' => '<span class="">Sunny</span>',
+		'[adam]' => '<span class="">Adam</span>',
+		'[neutral]' => '<span class=""></span>'
 	);
 
 	$output = nl2br(str_replace(array_keys($array_from_to), $array_from_to, $text));
 	return $output;
 }
-/*    code for images  */
+/*    code for images  
 foreach ($_POST as $k => $v) {
 	foreach ($lines as $lk => $lv) {
 		if ($lv->code == $k) {

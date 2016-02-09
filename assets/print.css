@@ -10,11 +10,8 @@
 div.card {
 	width: 63mm;
 	height: 86mm;
-	/* border: 1px solid #000; */
 	margin: 1mm;
 	padding: 1mm;
-	position: relative;
-	float: left;
 }
 
 div.placeholder {
@@ -24,59 +21,6 @@ div.placeholder {
 	margin: 1mm;
 	padding: 1mm; 
 	display: table; 
-}
-
-div.pagebreak {
-	height: 240mm;
-	page-break-after: always;
-}
-
-div.pos-2 {
-	position: relative;
-	left: 60mm;
-	top: -78.5mm;
-}
-
-div.pos-3 {
-	position: relative;
-	left: 120mm;
-	top: -157mm;
-}
-
-div.pos-4 {
-	position: relative;
-	left: 0mm;
-	top: -155mm;
-}
-
-div.pos-5 {
-	position: relative;
-	left: 60mm;
-	top: -233.5mm;
-}
-
-div.pos-6 {
-	position: relative;
-	left: 120mm;
-	top: -312mm;
-}
-
-div.pos-7 {
-	position: relative;
-	left: 0mm;
-	top: -310mm;
-}
-
-div.pos-8 {
-	position: relative;
-	left: 60mm;
-	top: -388mm;
-}
-
-div.pos-9 {
-	position: relative;
-	left: 120mm;
-	top: -466.5mm;
 }
 
 div.placeholder div.row {

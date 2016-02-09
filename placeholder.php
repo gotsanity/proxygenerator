@@ -42,6 +42,7 @@ $lines = json_decode($lines_coded);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link href="assets/print.css" rel="stylesheet" type="text/css">
+	<link href="assets/placeholder.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <?php

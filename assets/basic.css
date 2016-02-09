@@ -1,25 +1,25 @@
-@page  
-{ 
-    /* size: auto;   /* auto is the initial value */ 
+/* start basic styles */
 
-    /* this affects the margin in the printer settings */ 
-    margin: 5mm 5mm 5mm 5mm;
+@media print {
 
 }
 
-/* start basic styles */
 
-div[class="card basic"] {
-	border: 1px solid #000;
+div.basic {
+	width: 63mm;
+	height: 86mm;
+	border: 2px double #000;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px; /* future proofing */
 }
 
-div[class="card basic"] div.cost {
-	position: absolute;
-	right: 5.7mm;
-	top: 3mm;
+
+
+div.basic div.cost {
+	position: relative;
+	top: -4mm;
+	left: 50mm;
 	font-weight: bold;
 	font-size: 1.2em;
 	border: 1px solid #aaa;
@@ -30,10 +30,10 @@ div[class="card basic"] div.cost {
 	padding-top: 4.5px;
 }
 
-div[class="card basic"] div.title {
-	position: absolute;
-	top: 5mm;
-	left: 6mm;
+div.basic div.title {
+	position: relative;
+	top: 3mm;
+	left: 2mm;
 	font-size: 0.8em;
 	font-weight: bold;
 	border: 1px solid #aaa;
@@ -43,66 +43,152 @@ div[class="card basic"] div.title {
 	background-color: #eee;
 	width: 50mm;
 	height: 5mm;
-	padding-left: 10px;
-	padding-top: 2px;
+	padding-left: 2mm;
+	padding-top: .5mm;
 }
 
-div[class="card basic"] div.agenda div.agendapoints {
-	position: absolute;
-	top: 49.5mm;
-	left: 7mm;
+div.basic div.agenda div.agendapoints {
+	position: relative;
+	top: -3mm;
+	left: 5mm;
 	font-weight: bold;
 	font-size: 1.2em;
 }
 
-div[class="card basic"] div.type {
-	position: absolute;
-	top: 55mm;
-	left: 5mm;
-	width: 53mm;
-	text-align: left;
-	border-bottom: 2px solid #aaa;
-	padding-left: 5px;
-	font-weight: bold;
-	font-size: .6em;
+div.titlebar {
+	height: 12mm;
 }
 
-div[class="card basic"] div.text {
-	position: absolute;
-	width: 50mm;
+div.centerart {
+	height: 35mm;
+	z-index: top;
+}
+
+div.basic div.textbox {
+	position: relative;
+	left: 1.5mm;
+	height: 35mm;
+	width: 57mm;
 	text-align: left;
-	top: 61mm;
-	left: 7mm;
-	font-size: 0.5em;
 	border: 1px solid #aaa;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px; /* future proofing */
 	background-color: #eee;
-	width: 55mm;
-	height: 28mm;
-	margin-left: -3mm;
-	margin-top: -7mm;
-	padding-top: 25px;
+	z-index: -1;
+}
+
+div.basic div.type {
+	position: relative;
+	left: 1.5mm;
+	width: 54mm;
+	text-align: left;
+	border-bottom: 2px solid #aaa;
+	padding-left: 5px;
+	padding-top: -5mm;
+	font-weight: bold;
+	font-size: .6em;
+}
+
+div.basic div.text {
+	font-size: 0.5em;
+	padding-top: 5px;
 	padding-left: 5px;
 	padding-right: 5px;
-	vertical-align: top;
-	z-index: -1;
-	font-size: .60em;
 }
 
-div[class="card basic"] div.flavor {
+div.basic div.flavor {
 	font-style: italic;
+	font-size: 0.4em;
+	padding-top: 1em;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
-div[class="card basic"] div.cardart {
+div.basic div.cardart {
 	visibility: hidden;
 }
 
-div[class="card basic"] div.faction {
-	position: absolute;
-	bottom: 42.5%;
-	left: 20%;
-	font-size: 10em;
+div.faction {
+	position: relative;
+	left: 14mm;
+	top: -2mm;
+	font-size: 9em;
 	color: #eee;
 }
+
+div.influence {
+	position: relative;
+	bottom: 5mm;
+	left: 3mm;
+}
+
+span.icon-influence:before {
+	content: "\2022";
+}
+
+span.icon-missing {
+	font-size: 0.5em;
+}
+
+div.pagebreak {
+	height: 265mm;
+	page-break-after: always;
+}
+
+div.pos-2 {
+	position: relative;
+	width: 65mm;
+	left: 65mm;
+	top: -87mm;
+}
+
+div.pos-3 {
+	width: 65mm;
+	position: relative;
+	left: 130mm;
+	top: -174mm;
+}
+
+div.pos-4 {
+	width: 65mm;
+	position: relative;
+	left: 0mm;
+	top: -173mm;
+}
+
+div.pos-5 {
+	width: 65mm;
+	position: relative;
+	left: 65mm;
+	top: -260mm;
+}
+
+div.pos-6 {
+	width: 65mm;
+	position: relative;
+	left: 130mm;
+	top: -347mm;
+}
+
+div.pos-7 {
+	width: 65mm;
+	position: relative;
+	left: 0mm;
+	top: -346mm;
+}
+
+div.pos-8 {
+	width: 65mm;
+	position: relative;
+	left: 65mm;
+	top: -433mm;
+}
+
+div.pos-9 {
+	width: 65mm;
+	position: relative;
+	left: 130mm;
+	top: -520mm;
+}
+
