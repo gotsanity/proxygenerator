@@ -1,8 +1,8 @@
 <?php 
 
 $supported_games = array(
-	"doomtown" => "http://dtdb.co/api/cards/",
-	"netrunner" => "http://netrunnerdb.com/api/cards/"
+	"netrunner" => "http://netrunnerdb.com/api/cards/",
+	"doomtown" => "disabled"
 );
 
 
@@ -26,6 +26,7 @@ foreach ($supported_games as $game => $address) {
 if ($_GET['game']) {
 	$game = $_GET['game'];
 } else {
+	$_GET['game'] = 'netrunner';
 	$game = 'netrunner';
 }
 
@@ -54,7 +55,7 @@ $lines = json_decode($lines_coded);
 	<link rel="stylesheet" href="assets/jquery/jquery-ui.theme.css" />
 	<script src="assets/jquery/jquery-ui.min.js"></script>
 	<link href="assets/stylesheet.css" rel="stylesheet" type="text/css">
-	<title>Project Mulligan LCG/ECG Proxy Generator</title>
+	<title>Olygaming.com LCG Proxy Generator</title>
 	
 	<script>
 
@@ -365,16 +366,21 @@ $lines = json_decode($lines_coded);
 </head>
 
 <body>
-<h1>Project Mulligan LCG/ECG Proxy Generator</h1>
+<h1>Olygaming.com LCG/ECG Proxy Generator</h1>
 
 <div class="navigation">
 <?php
 echo "<div class='align-left btn-group btn-group-sm' role='group'>";
 foreach ($supported_games as $g => $site) {
+	$title = ucwords($g);
 	if ($_GET['game'] == $g) {
-		echo "<a href='/?game=$g' class='btn btn-default active' role='button'>$g</a>";
+		echo "<a href='/?game=$g' class='btn btn-default active' role='button'>$title</a>";
 	} else {
-		echo "<a href='/?game=$g' class='btn btn-default' role='button'>$g</a>";
+		if ($site == "disabled") {
+			echo "<a href='/?game=$g' class='btn btn-default disabled' role='button'>$title</a>";
+		} else {
+			echo "<a href='/?game=$g' class='btn btn-default' role='button'>$title</a>";
+		}
 	}
 }
 echo "</div>";
